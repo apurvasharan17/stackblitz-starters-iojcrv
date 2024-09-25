@@ -235,7 +235,7 @@ function sortedRating(rate1,rate2){
 app.get('/products/sort/popularity',(req,res)=>{
   let sortedProductByrating=products.slice();
   sortedProductByrating.sort(sortedRating);
-  res.json(sortedProductByrating);
+  res.json({products:sortedProductByrating});
 })
 function sortedPrice(price1,price2){
   return price2.price-price1.price;
@@ -243,7 +243,7 @@ function sortedPrice(price1,price2){
 app.get('/products/sort/price-high-to-low',(req,res)=>{
   let sortedProducts=products.slice();
   sortedProducts.sort(sortedPrice);
-  res.json(sortedProducts)
+  res.json({products:sortedProducts})
 
 })
 function sortedPriceinAscending(price1,price2){
@@ -252,7 +252,7 @@ function sortedPriceinAscending(price1,price2){
 app.get('/products/sort/price-low-to-high',(req,res)=>{
   let sortedProducts=products.slice();
   sortedProducts.sort(sortedPriceinAscending);
-  res.json(sortedProducts);
+  res.json({products:sortedProducts});
 })
 function filterByRam(secram,ram){
 return secram.ram==ram;
@@ -261,7 +261,7 @@ app.get('/products/filter/ram',(req,res)=>{
   let selectedRam=products.slice();
   let ram=req.query.ram;
   selectedRam=selectedRam.filter(secram=>filterByRam(secram,ram));
-  res.json(selectedRam);
+  res.json({products:selectedRam});
 })
 
 
@@ -271,7 +271,7 @@ function filterByRom(secrom,rom){
 app.get('/products/filter/rom',(req,res)=>{
   let rom=req.query.rom;
   let selectedRom=products.filter(secrom=>filterByRom(secrom,rom));
-  res.json(selectedRom);
+  res.json({products:selectedRom});
 })
 function filterByBrand(selectbrand,brand){
 return selectbrand.brand.toLowerCase()==brand.toLowerCase();
@@ -279,7 +279,7 @@ return selectbrand.brand.toLowerCase()==brand.toLowerCase();
 app.get('/products/filter/brand',(req,res)=>{
 brand=req.query.brand;
 let selectedBrand=products.filter(selectbrand=>filterByBrand(selectbrand,brand));
-res.json(selectedBrand);
+res.json({products:selectedBrand});
 })
 function filterByOs(selectos,os){
   return selectos.os.toLowerCase()==os.toLowerCase();
@@ -287,7 +287,7 @@ function filterByOs(selectos,os){
   app.get('/products/filter/os',(req,res)=>{
   os=req.query.os;
   let selectedOs=products.filter(selectos=>filterByOs(selectos,os));
-  res.json(selectedOs);
+  res.json({products:selectedOs});
   })
 
 function filterByPrice(product,price){
@@ -296,10 +296,10 @@ return product.price<=price;
 app.get('/products/filter/price',(req,res)=>{
   price=req.query.price;
   let selectPrice=products.filter(product=>filterByPrice(product,price));
-  res.json(selectPrice)
+  res.json({products:selectPrice})
 })
 app.get('/products',(req,res)=>{
-  res.json(products)
+  res.json({products:products})
 })
 
 
